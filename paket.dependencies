@@ -2,3 +2,6 @@ source https://api.nuget.org/v3/index.json
 
 storage: none
 framework: net7.0
+
+nuget FSharp.Core
+nuget Serilog

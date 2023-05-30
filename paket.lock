@@ -1,2 +1,6 @@
 STORAGE: NONE
 RESTRICTION: == net7.0
+NUGET
+  remote: https://api.nuget.org/v3/index.json
+    FSharp.Core (7.0.300)
+    Serilog (2.12)

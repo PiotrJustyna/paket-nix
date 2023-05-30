@@ -66,14 +66,56 @@ Install and restore Paket as a local tool in the root of your codebase.
   framework: net7.0
   ```
 
+* Add the following dependencies to `paket.dependencies`:
+
+  ```
+  nuget FSharp.Core
+  nuget Serilog
+  ```
+
+  Your `paket.dependencies` should look like this:
+
+  ```
+  source https://api.nuget.org/v3/index.json
+  
+  storage: none
+  framework: net7.0
+  
+  nuget FSharp.Core
+  nuget Serilog
+  ```
+
+* Add a new file to the `ConsoleApp` directory: `paket.references`. It should contain project-specific dependencies. In this case, we're just going to add two lines:
+
+  ```
+  FSharp.Core
+  Serilog
+  ```
+
 * `dotnet paket install` - creates `paket.lock` file if one does not exist yet with the following output:
 
   ```bash
   Paket version 7.2.1+8e4eb74b42fbd45f39f7afce9184c16ebb65f16c
   Resolving dependency graph...
+  Updated packages:
+    Group: Main
+      - FSharp.Core: 7.0.300 (added)
+      - Serilog: 2.12.0 (added)
   Installing into projects:
-  Created dependency graph (0 packages in total)
-  Total time taken: 29 milliseconds
+  Created dependency graph (2 packages in total)
+    - Project ConsoleApp.fsproj needs to be restored
+  Calling dotnet restore on PaketNix.sln
+    Determining projects to restore...
+    Paket version 7.2.1+8e4eb74b42fbd45f39f7afce9184c16ebb65f16c
+    The last full restore is still up to date. Nothing left to do.
+    Total time taken: 0 milliseconds
+    Paket version 7.2.1+8e4eb74b42fbd45f39f7afce9184c16ebb65f16c
+    Restoring /Users/piotrjustyna/Documents/code/paket-nix/ConsoleApp/ConsoleApp.fsproj
+    Starting restore process.
+    Total time taken: 0 milliseconds
+    Restored /Users/piotrjustyna/Documents/code/paket-nix/ConsoleApp/ConsoleApp.fsproj (in 263 ms).
+    1 of 2 projects are up-to-date for restore.
+    Total time taken: 3 seconds
   ```
 
   Your `paket.lock` should look like this:
@@ -81,6 +123,20 @@ Install and restore Paket as a local tool in the root of your codebase.
   ```
   STORAGE: NONE
   RESTRICTION: == net7.0
+  NUGET
+    remote: https://api.nuget.org/v3/index.json
+      FSharp.Core (7.0.300)
+      Serilog (2.12)
+  ```
+
+* Leverage nuget functionality in your code:
+
+  ```f#
+  open Serilog
+  
+  let libraryGreeting = Library.Say.hello "Piotr"
+  
+  Log.Logger.Information($"{libraryGreeting}")
   ```
 
 * make sure your `.gitignore` contains:
@@ -123,3 +179,9 @@ For IDEs, simply add those two as scripts to be executed before building the cod
 
 * https://fsprojects.github.io/Paket/get-started.html#NET-Core-preferred
 * https://stackoverflow.com/questions/15203498/intellij-idea-running-a-shell-script-as-a-run-debug-configuration
+
+### to note
+
+Unfortunately, rider is not a well supported ide meaning that it will point out problems where there are none - the solution compiles.
+
+![](./img/sad%20rider.png)
