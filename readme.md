@@ -57,6 +57,32 @@ Install and restore Paket as a local tool in the root of your codebase.
   Total time taken: 0 milliseconds
   ```
 
+  I changed the `framework` from `net5.0` to `net7.0`, but your `paket.dependencies` should look like this:
+
+  ```
+  source https://api.nuget.org/v3/index.json
+  
+  storage: none
+  framework: net7.0
+  ```
+
+* `dotnet paket install` - creates `paket.lock` file if one does not exist yet with the following output:
+
+  ```bash
+  Paket version 7.2.1+8e4eb74b42fbd45f39f7afce9184c16ebb65f16c
+  Resolving dependency graph...
+  Installing into projects:
+  Created dependency graph (0 packages in total)
+  Total time taken: 29 milliseconds
+  ```
+
+  Your `paket.lock` should look like this:
+
+  ```
+  STORAGE: NONE
+  RESTRICTION: == net7.0
+  ```
+
 * make sure your `.gitignore` contains:
 
   ```bash
