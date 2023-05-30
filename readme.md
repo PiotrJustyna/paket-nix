@@ -148,6 +148,16 @@ Install and restore Paket as a local tool in the root of your codebase.
 
 ### building your code
 
+Please note that the repository is equipped with two scripts:
+
+* `./build.sh`
+* `./run.sh`
+
+Which are leveraging docker to build and run the application. This repository provides two options for building and running the code:
+
+* simply build and run with your chosen ide - that way you are building and running the code using the **locally installed** dotnet dependencies. Ideal for day-to-day local development workflows.
+* build and run with those two shell scripts - that way you are building and running the code using docker. Ideal as a starting point for a build agent, ci/cd. etc.
+
 Following paket commands should execute ***before*** your code gets built, so integrate the commands in whatever way suits your dev workflow.
 
 #### bash
